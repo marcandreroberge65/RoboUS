@@ -21,7 +21,6 @@ int nbtours,nbtoursd;
 
 
 
-
 /* ****************************************************************************
 Vos propres fonctions sont creees ici
 **************************************************************************** */
@@ -71,6 +70,25 @@ if (x<0)
 }  
 
 
+void demitour (void)
+{
+
+    {
+    ENCODER_ReadReset(0);
+    nbtours= (ENCODER_Read(0));
+    MOTOR_SetSpeed(0,0.5);
+    MOTOR_SetSpeed(1,-0.5);
+    while ( nbtours < 3990)
+        {
+        delay(10);
+        nbtours=ENCODER_Read(0);
+        }
+    
+    }    
+  MOTOR_SetSpeed(0,0);
+  MOTOR_SetSpeed(1,0);
+  } 
+
 /* ****************************************************************************
 Fonctions d'initialisation (setup)
 **************************************************************************** */
@@ -93,11 +111,12 @@ Fonctions de boucle infini (loop())
   if (ROBUS_IsBumper(RIGHT))
   {
     tourner(4);
+    
   }
 
   else if (ROBUS_IsBumper(LEFT))
   {
-    tourner(-4);
+    demitour();
 
   }
 }  
